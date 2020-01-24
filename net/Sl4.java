@@ -1,0 +1,42 @@
+//基于UDP的网络编程
+import java.net.*;
+import java.io.*;
+
+public class Sl4{
+	public static void main(String arg[]){
+		if(arg.length>0){
+			rv();
+		}else{
+			st();
+		}
+	}
+	public static void rv(){
+		try{
+			DatagramSocket ds=new DatagramSocket(6001);
+			byte[] b=new byte[300];
+			DatagramPacket dp=new DatagramPacket(b,300);//300指包长，它应比b长小或相等！才能放到b中！
+			ds.receive(dp);
+			System.out.println(new String(b,0,dp.getLength()));
+			ds.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public static void st(){
+		try{
+			DatagramSocket ds=new DatagramSocket();
+			String str=new String("Hello, this is Joyu!");
+			DatagramPacket dp=new DatagramPacket(str.getBytes(),str.length(),
+			                                InetAddress.getByName("localhost"
+			                                ),6001);//"localhost"是接收者的地址！
+			ds.send(dp);
+			//ds.close();
+		
+			                                
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}	
